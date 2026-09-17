@@ -13,7 +13,7 @@ def read_questions(position: int):
         questions = json.load(stream)
 
     for question in questions:
-        if question['position'] == position:
+        if question['position'] == position+1:
             return question
 
 
