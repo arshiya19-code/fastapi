@@ -34,9 +34,7 @@ def read_alternatives(question_id: int):
 
 @app.post("/answer", status_code=201)
 def create_answer(payload: UserAnswer):
-    payload = payload.dict()
-
-    return api.create_answer(payload)
+    return api.create_answer(payload.to_payload())
 
 
 @app.get("/result/{user_id}")
