@@ -10,3 +10,6 @@ class Answer(BaseModel):
 class UserAnswer(BaseModel):
     user_id: int
     answers: List[Answer]
+
+    def to_payload(self):
+        return self.dict()
