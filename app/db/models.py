@@ -1,5 +1,5 @@
+
 from pydantic import BaseModel
-from typing import List
 
 
 class Answer(BaseModel):
@@ -9,7 +9,7 @@ class Answer(BaseModel):
 
 class UserAnswer(BaseModel):
     user_id: int
-    answers: List[Answer]
+    answers: list[Answer]
 
     def to_payload(self):
         return self.dict()

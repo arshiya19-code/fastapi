@@ -1,7 +1,9 @@
-from starlette.testclient import TestClient
-from app.main import app
-from app.db.models import UserAnswer
 import json
+
+from starlette.testclient import TestClient
+
+from app.db.models import UserAnswer
+from app.main import app
 
 client = TestClient(app)
 
