@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from starlette.responses import Response
 
-from app.db.models import UserAnswer
 from app.api import api
+from app.db.models import UserAnswer
 
 app = FastAPI()
 
@@ -34,9 +34,7 @@ def read_alternatives(question_id: int):
 
 @app.post("/answer", status_code=201)
 def create_answer(payload: UserAnswer):
-    payload = payload.dict()
-
-    return api.create_answer(payload)
+    return api.create_answer(payload.to_payload())
 
 
 @app.get("/result/{user_id}")

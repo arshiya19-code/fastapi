@@ -1,6 +1,9 @@
-from starlette.testclient import TestClient
-from app.main import app
 import json
+
+from starlette.testclient import TestClient
+
+from app.db.models import UserAnswer
+from app.main import app
 
 client = TestClient(app)
 
@@ -39,9 +42,22 @@ def test_create_answer():
     body = {"user_id": 1, "answers": [{"question_id": 1, "alternative_id": 2}, {
         "question_id": 2, "alternative_id": 2}, {"question_id": 2, "alternative_id": 2}]}
     body = json.dumps(body)
-    response = client.post('/answer', data=body)
+    response = client.post('/answer', data=body, headers={'Content-Type': 'application/json'})
     assert response.status_code == 201
+def test_user_answer_to_payload():
+    payload = UserAnswer(
+        user_id=1,
+        answers=[
+            {"question_id": 1, "alternative_id": 2},
+            {"question_id": 2, "alternative_id": 3}
+        ]
+    )
 
+    result = payload.to_payload()
+
+    assert result["user_id"] == 1
+    assert len(result["answers"]) == 2
+    assert result["answers"][0]["question_id"] == 1
 
 def test_read_result():
     response = client.get('/result/1')
